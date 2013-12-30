@@ -915,22 +915,21 @@ pthread_create(&thread_server[i],NULL,&thread_execute,NULL);
 pthread_create(&scheduler_thread,NULL,&thread_schedule,NULL);
 pthread_create(&queuing_thread,NULL,&thread_queue,NULL);
 
-//Socket Code taken from http://www.codeproject.com/Articles/586000/Networking-and-Socket-programming-tutorial-in-C 
-  struct sockaddr_in serv_addr, client_addr;
-  socklen_t client_len;
-  char sendBuff[1025];  
-  int numrv;  
-  client_len = sizeof(client_addr);
-  listenfd = socket(AF_INET, SOCK_STREAM, 0);
-  printf("socket retrieve success\n");
-  memset(&serv_addr, '0', sizeof(serv_addr));
-  memset(&client_addr, '0', sizeof(serv_addr));
-  memset(sendBuff, '0', sizeof(sendBuff));
-  serv_addr.sin_family = AF_INET;    
-  serv_addr.sin_addr.s_addr = htonl(INADDR_ANY); 
-  serv_addr.sin_port = htons(port_num); 
-  bind(listenfd, (struct sockaddr*)&serv_addr,sizeof(serv_addr));
-// End of code 
+struct sockaddr_in serv_addr, client_addr;
+socklen_t client_len;
+char sendBuff[1025];  
+int numrv;  
+client_len = sizeof(client_addr);
+listenfd = socket(AF_INET, SOCK_STREAM, 0);
+printf("socket retrieve success\n");
+memset(&serv_addr, '0', sizeof(serv_addr));
+memset(&client_addr, '0', sizeof(serv_addr));
+memset(sendBuff, '0', sizeof(sendBuff));
+serv_addr.sin_family = AF_INET;    
+serv_addr.sin_addr.s_addr = htonl(INADDR_ANY); 
+serv_addr.sin_port = htons(port_num); 
+bind(listenfd, (struct sockaddr*)&serv_addr,sizeof(serv_addr));
+ 
 pthread_join(queuing_thread, NULL);
 //pthread_join(thread_server, NULL);
 pthread_join(scheduler_thread, NULL);
